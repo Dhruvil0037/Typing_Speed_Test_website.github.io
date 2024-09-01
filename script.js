@@ -1,4 +1,4 @@
-import sdkUserAnalytics from 'http://127.0.0.1:5501/sdk.min.js';
+import sdkUserAnalytics from 'http://127.0.0.1:5500/new-user-sdk/sdk.min.js';
 
 const paragraphs = [
     "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
@@ -32,10 +32,11 @@ const cpmTag = document.querySelector(".cpm span")
 const websiteAnalyticId = "92ed3d3c-834a-405a-adb6-7ec7681cd183"
 let sdkIntegration
 let oneTimeInitSDK = false
+const __webNameSlug = "typing_test"
 
 function initSDK() {
     if (!oneTimeInitSDK) {
-        sdkIntegration = new sdkUserAnalytics(websiteAnalyticId)
+        sdkIntegration = new sdkUserAnalytics(websiteAnalyticId , __webNameSlug)
         oneTimeInitSDK = true
     }
 }
