@@ -50,7 +50,6 @@ function loadParagraph() {
     const ranIndex = Math.floor(Math.random() * paragraphs.length);
     typingText.innerHTML = "";
     paragraphs[ranIndex].split("").forEach(char => {
-        console.log(char);
         let span = `<span>${char}</span>`
         typingText.innerHTML += span;
     });
