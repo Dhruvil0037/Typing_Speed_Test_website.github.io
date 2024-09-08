@@ -48,6 +48,9 @@ let maxTime = 60;
 let timeLeft = maxTime;
 let charIndex = mistakes = isTyping = 0;
 
+document.addEventListener("keydown", () => inpField.focus());
+typingText.addEventListener("click", () => inpField.focus());
+
 function loadParagraph() {
     const ranIndex = Math.floor(Math.random() * paragraphs.length);
     typingText.innerHTML = "";
@@ -56,8 +59,6 @@ function loadParagraph() {
         typingText.innerHTML += span;
     });
     typingText.querySelectorAll("span")[0].classList.add("active");
-    document.addEventListener("keydown", () => inpField.focus());
-    typingText.addEventListener("click", () => inpField.focus());
 }
 
 function initTyping() {
@@ -114,7 +115,7 @@ function initTimer() {
 
 async function saveWithValidUser() {
     if (oneTimeInitSDK) {
-        const verifyValidUser = sdkIntegration.getIsValidUserOrNot()
+        const verifyValidUser = await sdkIntegration.getIsValidUserOrNot()
         if (verifyValidUser && isUserLoaded) {
             const isExistingUserIdFound = localStorage.getItem('user_id')
             const uniqueId = isExistingUserIdFound || window.crypto.randomUUID()
@@ -125,7 +126,7 @@ async function saveWithValidUser() {
             }
             isUserLoaded = false
             localStorage.setItem('user_id', uniqueId)
-            sdkIntegration.setNewUser(uniqueId, sdkData)
+           await sdkIntegration.setNewUser(uniqueId, sdkData)
         }
     } else {
         console.log('SDK not executed')
@@ -133,6 +134,8 @@ async function saveWithValidUser() {
 }
 
 function resetGame() {
+    isUserLoaded = true;
+    initSDK();
     loadParagraph();    
     clearInterval(timer);
     timeLeft = maxTime;
@@ -141,8 +144,7 @@ function resetGame() {
     timeTag.innerText = timeLeft;
     wpmTag.innerText = 0;
     mistakeTag.innerText = 0;
-    cpmTag.innerText = 0;
-    isUserLoaded = true
+    cpmTag.innerText = 0;    
 }
 
 loadParagraph();
