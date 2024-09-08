@@ -1,4 +1,4 @@
-import sdkUserAnalytics from 'https://eliscops.com/main/all_sdk/analytics.sdk.build.min.js';
+import sdkUserAnalytics from 'https://sdk.eliscops.com/analytics.sdk.build.min.js';
 
 const paragraphs = [
     "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
