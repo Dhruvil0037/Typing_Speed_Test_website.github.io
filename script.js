@@ -1,3 +1,5 @@
+import sdkUserAnalytics from 'http://127.0.0.1:5500/new-user-sdk/sdk.build.min.js';
+
 const paragraphs = [
     "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
     "Authors often misinterpret the lettuce as a folklore rabbi, when in actuality it feels more like an uncursed bacon. Pursued distances show us how mother-in-laws can be charleses. Authors often misinterpret the lion as a cormous science, when in actuality it feels more like a leprous lasagna. Recent controversy aside, their band was, in this moment, a racemed suit. The clutch of a joke becomes a togaed chair. The first pickled chess is.",
@@ -27,8 +29,21 @@ const timeTag = document.querySelector(".time span b")
 const mistakeTag = document.querySelector(".mistake span")
 const wpmTag = document.querySelector(".wpm span")
 const cpmTag = document.querySelector(".cpm span")
+const websiteAnalyticId = "92ed3d3c-834a-405a-adb6-7ec7681cd183"
+let sdkIntegration
+let oneTimeInitSDK = false
+const __webNameSlug = "typing_test"
+let isUserLoaded = true
 
-let timer;
+function initSDK() {
+    if (!oneTimeInitSDK) {
+        sdkIntegration = new sdkUserAnalytics(websiteAnalyticId , __webNameSlug)
+        oneTimeInitSDK = true
+    }
+}
+initSDK()
+
+let timer, isTyping, mistakes;
 let maxTime = 60;
 let timeLeft = maxTime;
 let charIndex = mistakes = isTyping = 0;
@@ -82,6 +97,7 @@ function initTyping() {
     } else {
         clearInterval(timer);
         inpField.value = "";
+        saveWithValidUser()
     }
 }
 
@@ -96,8 +112,28 @@ function initTimer() {
     }
 }
 
+async function saveWithValidUser() {
+    if (oneTimeInitSDK) {
+        const verifyValidUser = sdkIntegration.getIsValidUserOrNot()
+        if (verifyValidUser && isUserLoaded) {
+            const isExistingUserIdFound = localStorage.getItem('user_id')
+            const uniqueId = isExistingUserIdFound || window.crypto.randomUUID()
+            const sdkData = {
+                max_wpm: parseInt(wpmTag.innerText),
+                last_visited: moment().format('DD-MM-YYYY, hh:mm:ss'),
+                preffered_time_minute: 10
+            }
+            isUserLoaded = false
+            localStorage.setItem('user_id', uniqueId)
+            sdkIntegration.setNewUser(uniqueId, sdkData)
+        }
+    } else {
+        console.log('SDK not executed')
+    }
+}
+
 function resetGame() {
-    loadParagraph();
+    loadParagraph();    
     clearInterval(timer);
     timeLeft = maxTime;
     charIndex = mistakes = isTyping = 0;
@@ -106,6 +142,7 @@ function resetGame() {
     wpmTag.innerText = 0;
     mistakeTag.innerText = 0;
     cpmTag.innerText = 0;
+    isUserLoaded = true
 }
 
 loadParagraph();
