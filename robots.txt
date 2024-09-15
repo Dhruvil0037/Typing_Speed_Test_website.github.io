@@ -1,2 +1,10 @@
-User-Agent: *
-Disallow:
+# Allow all web crawlers to index your website
+User-agent: *
+Allow: /
+
+# Block access to specific sensitive directories
+Disallow: /admin/
+Disallow: /cgi-bin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /private/
