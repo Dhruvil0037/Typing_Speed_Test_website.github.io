@@ -1,4 +1,4 @@
-import sdkUserAnalytics from 'https://sdk.eliscops.com/analytics.sdk.build.min.js';
+// import sdkUserAnalytics from 'https://sdk.eliscops.com/analytics.sdk.build.min.js';
 
 const paragraphs = [
     "Their politician was, in this moment, a notour paperback. The first armless grouse is, in its own way, a gear. The coat is a wash. However, a cake is the llama of a caravan. Snakelike armies show us how playgrounds can be viscoses. Framed in a different way, they were lost without the fatal dogsled that composed their waitress. Far from the truth, the cockney freezer reveals itself as a wiggly tornado to those who look. The first hawklike sack.",
@@ -29,19 +29,19 @@ const timeTag = document.querySelector(".time span b")
 const mistakeTag = document.querySelector(".mistake span")
 const wpmTag = document.querySelector(".wpm span")
 const cpmTag = document.querySelector(".cpm span")
-const websiteAnalyticId = "92ed3d3c-834a-405a-adb6-7ec7681cd183"
-let sdkIntegration
-let oneTimeInitSDK = false
-const __webNameSlug = "typing_test"
-let isUserLoaded = true
+// const websiteAnalyticId = "92ed3d3c-834a-405a-adb6-7ec7681cd183"
+// let sdkIntegration
+// let oneTimeInitSDK = false
+// const __webNameSlug = "typing_test"
+// let isUserLoaded = true
 
-function initSDK() {
-    if (!oneTimeInitSDK) {
-        sdkIntegration = new sdkUserAnalytics(websiteAnalyticId , __webNameSlug)
-        oneTimeInitSDK = true
-    }
-}
-initSDK()
+// function initSDK() {
+//     if (!oneTimeInitSDK) {
+//         sdkIntegration = new sdkUserAnalytics(websiteAnalyticId , __webNameSlug)
+//         oneTimeInitSDK = true
+//     }
+// }
+// initSDK()
 
 let timer, isTyping, mistakes;
 let maxTime = 60;
@@ -113,29 +113,29 @@ function initTimer() {
     }
 }
 
-async function saveWithValidUser() {
-    if (oneTimeInitSDK) {
-        const verifyValidUser = await sdkIntegration.getIsValidUserOrNot()
-        if (verifyValidUser && isUserLoaded) {
-            const isExistingUserIdFound = localStorage.getItem('user_id')
-            const uniqueId = isExistingUserIdFound || window.crypto.randomUUID()
-            const sdkData = {
-                max_wpm: parseInt(wpmTag.innerText),
-                last_visited: moment().format('DD-MM-YYYY, hh:mm:ss'),
-                preffered_time_minute: 10
-            }
-            isUserLoaded = false
-            localStorage.setItem('user_id', uniqueId)
-           await sdkIntegration.setNewUser(uniqueId, sdkData)
-        }
-    } else {
-        console.log('SDK not executed')
-    }
-}
+// async function saveWithValidUser() {
+//     if (oneTimeInitSDK) {
+//         const verifyValidUser = await sdkIntegration.getIsValidUserOrNot()
+//         if (verifyValidUser && isUserLoaded) {
+//             const isExistingUserIdFound = localStorage.getItem('user_id')
+//             const uniqueId = isExistingUserIdFound || window.crypto.randomUUID()
+//             const sdkData = {
+//                 max_wpm: parseInt(wpmTag.innerText),
+//                 last_visited: moment().format('DD-MM-YYYY, hh:mm:ss'),
+//                 preffered_time_minute: 10
+//             }
+//             isUserLoaded = false
+//             localStorage.setItem('user_id', uniqueId)
+//            await sdkIntegration.setNewUser(uniqueId, sdkData)
+//         }
+//     } else {
+//         console.log('SDK not executed')
+//     }
+// }
 
 function resetGame() {
-    isUserLoaded = true;
-    initSDK();
+    // isUserLoaded = true;
+    // initSDK();
     loadParagraph();    
     clearInterval(timer);
     timeLeft = maxTime;
