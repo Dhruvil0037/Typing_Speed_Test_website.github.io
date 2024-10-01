@@ -349,3 +349,24 @@ li:not(:first-child) span {
     }
 }
 
+.domain a {
+    height: 20px;
+}
+
+.domain div a {
+    color: white;
+}
+
+.domain {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    gap: 10px;
+}
+
+.google-tag-iframe {
+    display:none;
+    visibility:hidden
+}
